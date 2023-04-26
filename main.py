@@ -3,7 +3,7 @@ from mapa import Mapa
 from blocos import Blocos_indestrutiveis
 
 #Criando mapa e blocos que não quebram
-mapa = Mapa(900, 1600, 100, 25) 
+mapa = Mapa(800, 700, 100, 25) 
 blocos = Blocos_indestrutiveis(mapa.tela, 25, 125)
 
 def main():
