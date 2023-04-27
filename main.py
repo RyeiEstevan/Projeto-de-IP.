@@ -1,13 +1,14 @@
 import pygame
+from constantes import *
 from mapa import Mapa
 from blocos import Blocos_indestrutiveis
 
-#Criando mapa e blocos que não quebram
-mapa = Mapa(800, 700, 100, 25) 
-blocos = Blocos_indestrutiveis(mapa.tela, 25, 125)
-
 def main():
 
+    #Criando mapa e blocos que não quebram
+    mapa = Mapa(CELULAS_ALTURA*TAMANHO_CELULA, CELULAS_LARGURA*TAMANHO_CELULA, TAMANHO_MENU, TAMANHO_BORDAS) 
+    blocos = Blocos_indestrutiveis(mapa.tela)
+    
     #Iniciando pygame e loop para o jogo ficar rodando até fecharem
     Rodar = True
     pygame.init()
