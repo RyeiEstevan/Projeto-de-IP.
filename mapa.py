@@ -9,11 +9,11 @@ class Mapa:
         self.largura = largura
         self.largura_menu = largura_menu
         self.largura_bordas = largura_bordas
-        self.background = pygame.image.load("wallpaperflare.com_wallpaper.jpg")
+        
 
         #Criando a tela do jogo e dando nome a ela
         self.tela = pygame.display.set_mode((largura, altura)) 
-        self.tela.blit(self.background, (0, 0))
+        self.tela.fill((0, 153, 0)) 
         pygame.display.flip()
         pygame.display.set_caption("CINberman (nome temporario)")
         self.bordas = []
