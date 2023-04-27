@@ -8,7 +8,7 @@ class Mapa:
         self.largura = largura
         self.largura_menu = largura_menu
         self.largura_bordas = largura_bordas
-        self.background = pygame.image.load("wallpaperflare.com_wallpaper.jpg")
+        
 
         #Criando a tela do jogo e dando nome a ela
         self.tela = pygame.display.set_mode((largura, altura)) 
