@@ -6,9 +6,9 @@ X = 0 ;  Y = 1
 TAMANHO_BORDAS = int(TAMANHO_CELULA/2)
 MAPA_ALTURA = CELULAS_ALTURA - int(TAMANHO_MENU/TAMANHO_CELULA) - int( (TAMANHO_BORDAS*2)/TAMANHO_CELULA )
 MAPA_LARGURA = CELULAS_LARGURA - int( (TAMANHO_BORDAS*2)/TAMANHO_CELULA )
+
 celulas = [] #celulas será uma matriz com a coordenada de cada celula
 c = []
-
 y = TAMANHO_MENU + TAMANHO_BORDAS
 for i in range (MAPA_ALTURA):
     x = TAMANHO_BORDAS
@@ -18,7 +18,12 @@ for i in range (MAPA_ALTURA):
     celulas.append(c) ; c = []
     y += TAMANHO_CELULA
 
-
+blocos_indestrutiveis = []
+for i in range (MAPA_ALTURA):
+    for a in range (MAPA_LARGURA):
+        if i%2 != 0 and a%2 != 0:
+            x = celulas[i][a][X] ; y = celulas[i][a][Y]
+            blocos_indestrutiveis.append((x, y))
 
 
 
