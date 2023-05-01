@@ -19,7 +19,7 @@ class Personagem(pygame.sprite.Sprite):
         self.bombas = 0
 
     def update(self):
-
+        self.x1 = self.rect.x ; self.y1 = self.rect.y
         botao = pygame.key.get_pressed()
         if botao[pygame.K_a]:
             self.rect.x -= self.velocidade
@@ -44,7 +44,7 @@ class Personagem(pygame.sprite.Sprite):
                 i.kill()
 
     def buff_speed(self):
-        self.velocidade += 10
+        self.velocidade += 5
         print(f"velocidade: {self.velocidade}")
 
     def add_bomba(self):
@@ -81,5 +81,5 @@ class Personagem(pygame.sprite.Sprite):
         
         for i in range (len(blocos_indestrutiveis)):
             if self.rect.colliderect(pygame.rect.Rect(blocos_indestrutiveis[i], (TAMANHO_CELULA, TAMANHO_CELULA))):
-                self.rect.x = x1
-                self.rect.y = y1
+                self.rect.x = self.x1
+                self.rect.y = self.y1
