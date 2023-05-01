@@ -1,11 +1,13 @@
 import pygame
 from constantes import *
+from sprites import sprites
+from item import Item
 
 class Personagem(pygame.sprite.Sprite):
     def __init__(self, tela, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.tela = tela
-        self.vida = 3
+        self.vida = 1
         self.altura = TAMANHO_CELULA-10
         self.largura = TAMANHO_CELULA-10
         self.velocidade = 5
@@ -13,9 +15,11 @@ class Personagem(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (self.largura, self.altura))
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
+        self.sprite = pygame.sprite.Group(self)
+        self.bombas = 0
 
     def update(self):
-        self.x1 = self.rect.x ; self.y1 = self.rect.y
+
         botao = pygame.key.get_pressed()
         if botao[pygame.K_a]:
             self.rect.x -= self.velocidade
@@ -33,8 +37,38 @@ class Personagem(pygame.sprite.Sprite):
             print(f"Boom bomba, local: ({self.rect.x}, {self.rect.y})")
         
         self.colisao()
-        
+
+        for i in Item.itens:
+            if self.rect.colliderect(i):
+                self.acao[i.tipo](self)
+                i.kill()
+
+    def buff_speed(self):
+        self.velocidade += 10
+        print(f"velocidade: {self.velocidade}")
+
+    def add_bomba(self):
+        self.bombas += 1
+        print(f"bombas: {self.bombas}")
+
+    def curar(self):
+        self.vida += 1
+        print(f"vida: {self.vida}")
+
+    def dano(self):
+        self.vida -= 1
+        print(f"vida: {self.vida}")
+
+    acao = {
+        "velocidade" : buff_speed,
+        "bomba" : add_bomba,
+        "vida" : curar,
+        "tempo" : dano
+    }
+
+
     def colisao(self):
+        x1 = self.rect.x ; y1 = self.rect.y
         #checar colisão bordas
         if self.rect.x > (CELULAS_LARGURA*TAMANHO_CELULA)-TAMANHO_BORDAS-self.largura:
             self.rect.x = (CELULAS_LARGURA*TAMANHO_CELULA)-TAMANHO_BORDAS-self.largura
@@ -47,5 +81,5 @@ class Personagem(pygame.sprite.Sprite):
         
         for i in range (len(blocos_indestrutiveis)):
             if self.rect.colliderect(pygame.rect.Rect(blocos_indestrutiveis[i], (TAMANHO_CELULA, TAMANHO_CELULA))):
-                self.rect.x = self.x1
-                self.rect.y = self.y1
+                self.rect.x = x1
+                self.rect.y = y1
