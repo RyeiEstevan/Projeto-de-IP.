@@ -1,5 +1,5 @@
 import pygame
-from mapa import Mapa
+from constantes import *
 
 class Personagem(pygame.sprite.Sprite):
     def __init__(self, tela, x, y):
@@ -28,4 +28,19 @@ class Personagem(pygame.sprite.Sprite):
         if botao[pygame.K_s]:
             self.rect.y += self.velocidade
         
+        if botao[pygame.K_SPACE]:
+            print(f"Boom bomba, local: ({self.rect.x}, {self.rect.y})")
+        
+        self.colisao()
+        
+    def colisao(self):
+        #checar colisão bordas
+        if self.rect.x > (CELULAS_LARGURA*TAMANHO_CELULA)-TAMANHO_BORDAS-self.largura:
+            self.rect.x = (CELULAS_LARGURA*TAMANHO_CELULA)-TAMANHO_BORDAS-self.largura
+        elif self.rect.x < TAMANHO_BORDAS:
+            self.rect.x = TAMANHO_BORDAS
+        if self.rect.y > (CELULAS_ALTURA*TAMANHO_CELULA)-TAMANHO_BORDAS-self.altura:
+            self.rect.y = (CELULAS_ALTURA*TAMANHO_CELULA)-TAMANHO_BORDAS-self.altura
+        elif self.rect.y < TAMANHO_MENU+TAMANHO_BORDAS:
+           self.rect.y = TAMANHO_MENU+TAMANHO_BORDAS
         
