@@ -29,6 +29,13 @@ class Mapa:
             self.bordas.append((x, y))
             x = a*TAMANHO_BORDAS ; y = (CELULAS_ALTURA*TAMANHO_CELULA)-TAMANHO_BORDAS
             self.bordas.append((x, y))
+         
+        mapa2 = [[0 for j in range(MAPA_LARGURA)] for i in range(MAPA_ALTURA)]
+        num_blocos_destrutiveis = 120
+        for i in range(num_blocos_destrutiveis):
+            x = random.randint(0, MAPA_LARGURA - 1)
+            y = random.randint(0, MAPA_ALTURA - 1)
+            mapa2[y][x] = 1
 
 
 class Bordas(pygame.sprite.Sprite):
@@ -38,5 +45,6 @@ class Bordas(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (TAMANHO_BORDAS, TAMANHO_BORDAS))
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
+        
             
         
