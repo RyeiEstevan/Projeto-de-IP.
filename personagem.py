@@ -7,7 +7,7 @@ class Personagem(pygame.sprite.Sprite):
     def __init__(self, tela, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.tela = tela
-        self.vida = 1
+        self.vida = 3
         self.altura = TAMANHO_CELULA-10
         self.largura = TAMANHO_CELULA-10
         self.velocidade = 5
