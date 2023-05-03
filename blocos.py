@@ -24,7 +24,7 @@ class Blocos_destrutiveis(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
 
-        # Variável de controle de destruição do bloco
+        #Destruiçao de bloco
         self.destruido = False
 
     def explode(self):
@@ -33,9 +33,7 @@ class Blocos_destrutiveis(pygame.sprite.Sprite):
             self.image = pygame.image.load("sprites\Blocos_destruidos.png")
             self.image = pygame.transform.scale(self.image, (self.tamanho_blocos, self.tamanho_blocos))
     
-        
-            # Realizando outras ações necessárias, como remover o bloco do grupo de sprite
-            # self.kill()
+      # self.kill()
 
      
         
