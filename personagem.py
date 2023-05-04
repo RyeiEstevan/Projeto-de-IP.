@@ -5,12 +5,11 @@ from item import Item
 
 class Personagem(pygame.sprite.Sprite):
     def __init__(self, tela, x, y):
-        pygame.sprite.Sprite.__init__(self)
-        self.tela = tela
-        self.vida = 3
+        super().__init__()
+        self.vida = 1
         self.altura = TAMANHO_CELULA-10
         self.largura = TAMANHO_CELULA-10
-        self.velocidade = 5
+        self.velocidade = 3
         self.image = pygame.image.load("sprites\Personagem.png")
         self.image = pygame.transform.scale(self.image, (self.largura, self.altura))
         self.rect = self.image.get_rect()
@@ -44,7 +43,7 @@ class Personagem(pygame.sprite.Sprite):
                 i.kill()
 
     def buff_speed(self):
-        self.velocidade += 5
+        self.velocidade += 2
         print(f"velocidade: {self.velocidade}")
 
     def add_bomba(self):
@@ -66,9 +65,7 @@ class Personagem(pygame.sprite.Sprite):
         "tempo" : dano
     }
 
-
     def colisao(self):
-        x1 = self.rect.x ; y1 = self.rect.y
         #checar colisão bordas
         if self.rect.x > (CELULAS_LARGURA*TAMANHO_CELULA)-TAMANHO_BORDAS-self.largura:
             self.rect.x = (CELULAS_LARGURA*TAMANHO_CELULA)-TAMANHO_BORDAS-self.largura
@@ -80,6 +77,17 @@ class Personagem(pygame.sprite.Sprite):
            self.rect.y = TAMANHO_MENU+TAMANHO_BORDAS
         
         for i in range (len(blocos_indestrutiveis)):
-            if self.rect.colliderect(pygame.rect.Rect(blocos_indestrutiveis[i], (TAMANHO_CELULA, TAMANHO_CELULA))):
-                self.rect.x = self.x1
-                self.rect.y = self.y1
+            rect = pygame.rect.Rect(blocos_indestrutiveis[i], (TAMANHO_CELULA, TAMANHO_CELULA))
+            if self.rect.colliderect(rect):
+                direcao = (self.x1 - rect.x,self.y1 - rect.y)
+                if abs(direcao[0]) > abs(direcao[1]):
+                    if direcao[0] < 0:
+                        self.rect.x = rect.x - self.largura
+                    else:
+                        self.rect.x = rect.x + TAMANHO_CELULA
+                else:
+                    if direcao[1] < 0:
+                        self.rect.y = rect.y - self.altura
+                    else:
+                        self.rect.y = rect.y + TAMANHO_CELULA
+
