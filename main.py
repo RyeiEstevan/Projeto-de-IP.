@@ -2,7 +2,7 @@ import pygame
 from constantes import *
 from mapa import Mapa
 from mapa import Bordas
-from blocos import Blocos_indestrutiveis
+from blocos import Blocos_indestrutiveis, Blocos_destrutiveis
 from personagem import Personagem
 from item import Item
 from sprites import sprites
@@ -16,6 +16,7 @@ def main():
     mapa = Mapa(CELULAS_ALTURA*TAMANHO_CELULA, CELULAS_LARGURA*TAMANHO_CELULA, TAMANHO_MENU, TAMANHO_BORDAS) 
     bordas = [Bordas(i[0], i[1]) for i in mapa.bordas]
     blocos_ind = [Blocos_indestrutiveis(i[0], i[1]) for i in blocos_indestrutiveis]
+    blocos_dest = [Blocos_destrutiveis(i[0], i[1]) for i in blocos_destrutiveis]
 
     Item(mapa.tela, 0, 2, "velocidade")
     Item(mapa.tela, 0, 5, "tempo")
@@ -23,7 +24,8 @@ def main():
     Item(mapa.tela, 4, 2,"bomba")
 
     player = Personagem(mapa.tela, 25, 125)
-    [sprites.add(i) for i in bordas + blocos_ind]
+    [sprites.add(i) for i in bordas + blocos_ind + blocos_dest]
+
     
     fonte = pygame.font.SysFont('arial', 40, True, True)
 
