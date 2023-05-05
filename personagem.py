@@ -16,7 +16,7 @@ class Personagem(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
         self.sprite = pygame.sprite.Group(self)
-        self.bombas = 0
+        self.bombas = 1
         self.explodir = False
         self.tempo_explodir = 0
         self.bomba = 0
@@ -24,6 +24,11 @@ class Personagem(pygame.sprite.Sprite):
     def update(self):
         self.x1 = self.rect.x ; self.y1 = self.rect.y
         botao = pygame.key.get_pressed()
+        if botao[pygame.K_SPACE]:
+            if not self.explodir:
+                self.explodir = True
+                print(f"Boom bomba, local: ({self.rect.x}, {self.rect.y})")
+                self.bomba = Bomba(self.rect.x, self.rect.y)
         if botao[pygame.K_a]:
             self.rect.x -= self.velocidade
 
@@ -34,13 +39,8 @@ class Personagem(pygame.sprite.Sprite):
             self.rect.y -= self.velocidade
 
         if botao[pygame.K_s]:
-            self.rect.y += self.velocidade
-        
-        if botao[pygame.K_SPACE]:
-            if not self.explodir:
-                self.explodir = True
-                print(f"Boom bomba, local: ({self.rect.x}, {self.rect.y})")
-                self.bomba = Bomba(self.rect.x, self.rect.y)
+            self.rect.y += self.velocidade       
+ 
 
         if self.explodir:        
             self.tempo_explodir += 1
@@ -81,7 +81,7 @@ class Personagem(pygame.sprite.Sprite):
         self.vida += 1
         print(f"vida: {self.vida}")
 
-    def dano(self):
+    def tempo(self):
         self.vida -= 1
         print(f"vida: {self.vida}")
 
@@ -89,7 +89,7 @@ class Personagem(pygame.sprite.Sprite):
         "velocidade" : buff_speed,
         "bomba" : add_bomba,
         "vida" : curar,
-        "tempo" : dano
+        "tempo" : tempo
     }
 
     def colisao(self):
