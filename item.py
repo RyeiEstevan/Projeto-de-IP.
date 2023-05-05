@@ -6,7 +6,7 @@ from sprites import sprites
 materiais = {
     "bomba" : "sprites\Bomba.png",
     "vida" : "sprites\Vida.png",
-    "tempo" : "sprites\Tempo.png",
+    "tempo" : 'sprites\Tempo.png',
     "velocidade" : "sprites\Velocidade.png"
 }
 
@@ -18,6 +18,7 @@ class Item(Sprite):
         
         Sprite.__init__(self)
         self.image = pygame.image.load(materiais[tipo])
+        self.image = pygame.transform.scale(self.image, (TAMANHO_CELULA, TAMANHO_CELULA))
         self.rect = self.image.get_rect()
         self.tela = tela
         self.tipo = tipo
