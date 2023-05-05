@@ -2,6 +2,7 @@ import pygame
 from constantes import *
 from sprites import sprites
 from item import Item
+from bomba import Bomba
 
 class Personagem(pygame.sprite.Sprite):
     def __init__(self, tela, x, y):
@@ -16,6 +17,9 @@ class Personagem(pygame.sprite.Sprite):
         self.rect.topleft = x, y
         self.sprite = pygame.sprite.Group(self)
         self.bombas = 0
+        self.explodir = False
+        self.tempo_explodir = 0
+        self.bomba = 0
 
     def update(self):
         self.x1 = self.rect.x ; self.y1 = self.rect.y
@@ -33,7 +37,17 @@ class Personagem(pygame.sprite.Sprite):
             self.rect.y += self.velocidade
         
         if botao[pygame.K_SPACE]:
-            print(f"Boom bomba, local: ({self.rect.x}, {self.rect.y})")
+            if not self.explodir:
+                self.explodir = True
+                print(f"Boom bomba, local: ({self.rect.x}, {self.rect.y})")
+                self.bomba = Bomba(self.rect.x, self.rect.y)
+
+        if self.explodir:        
+            self.tempo_explodir += 1
+            if self.tempo_explodir == 180:
+                self.explodir_bomba()
+            elif self.tempo_explodir == 240:
+                self.apagar_fogo()
         
         self.colisao()
 
@@ -41,6 +55,19 @@ class Personagem(pygame.sprite.Sprite):
             if self.rect.colliderect(i):
                 self.acao[i.tipo](self)
                 i.kill()
+
+    def explodir_bomba(self):
+        sprites.remove(self.bomba)
+        self.bomba.explodir()
+    
+    def apagar_fogo(self):
+        self.tempo_explodir = 0
+        sprites.remove(self.bomba.fogo1)
+        sprites.remove(self.bomba.fogo2)
+        sprites.remove(self.bomba.fogo3)
+        sprites.remove(self.bomba.fogo4)
+        sprites.remove(self.bomba.fogo5)
+        self.explodir = False
 
     def buff_speed(self):
         self.velocidade += 2
