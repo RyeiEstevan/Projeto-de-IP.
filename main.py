@@ -6,6 +6,7 @@ from blocos import Blocos_indestrutiveis
 from personagem import Personagem
 from item import Item
 from sprites import sprites
+from timer import Timer
 
 def main():
 
@@ -23,14 +24,21 @@ def main():
 
     player = Personagem(mapa.tela, 25, 125)
     [sprites.add(i) for i in bordas + blocos_ind]
-
+    
     fonte = pygame.font.SysFont('arial', 40, True, True)
+
+    # Gerando o timer
+
+    timer = Timer()
 
     #Iniciando pygame e loop para o jogo ficar rodando até fecharem
     clock = pygame.time.Clock()
     Rodar = True
     pygame.init()
     while Rodar:
+        timer.__str__()
+        timer_impressao = f'{timer.sec}'
+        texto_timer = fonte.render(timer_impressao, False, (255, 255, 255))
         mensagem = f'Vida: {player.vida}'
         mapa.tela.fill((0,0,0))
         texto_formatado = fonte.render(mensagem, False, (255, 255, 255))
@@ -39,6 +47,7 @@ def main():
             if event.type == pygame.QUIT:
                 Rodar == False
                 exit()
+        mapa.tela.blit(texto_timer, (TAMANHO_CELULA*CELULAS_LARGURA - 100,0))
         mapa.tela.blit(texto_formatado, (0,0))
         player.sprite.draw(mapa.tela)
         sprites.draw(mapa.tela)
