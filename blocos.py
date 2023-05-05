@@ -33,9 +33,11 @@ class Blocos_destrutiveis(pygame.sprite.Sprite):
             self.image = pygame.image.load("sprites\Blocos_destruidos.png")
             self.image = pygame.transform.scale(self.image, (self.tamanho_blocos, self.tamanho_blocos))
     
-      # self.kill()
+      #self.kill()
 
 
+
+#essa função eu criei p verificar se há blocos destrutíveis no alcance da bomba, mas como não tinha a classe da bomba ainda coloquei por aqui
  def verificar_blocos_destrutiveis_no_alcance(self, mapa):
         blocos_destrutiveis = []
 
@@ -64,5 +66,26 @@ class Blocos_destrutiveis(pygame.sprite.Sprite):
                 blocos_destrutiveis.append((x, y))
 
         return blocos_destrutiveis
+
+#essa função deve ser colocada na classe da bomba, mas ela verifica basicaemnte quais blocos devem ser destruídos:
+def explode(self, mapa, blocos_destrutiveis):
+    #Blocos q devem ser destruidos
+    blocos_a_destruir = self.verificar_blocos_destrutiveis_no_alcance(mapa)
+    for bloco_coord in blocos_a_destruir:
+        for bloco in blocos_destrutiveis:
+            if bloco.rect.topleft == bloco_coord:
+                bloco.explode()
+ 
+#O ideal passar a lista criada aqui de blocos destrutíveis como argumento na classe bomba p iterar sobre elea
+blocos_destrutiveis = []
+for i in range(MAPA_ALTURA):
+    for j in range(MAPA_LARGURA):
+        if mapa2[i][j] == 1:
+            x = j * TAMANHO_CELULA
+            y = i * TAMANHO_CELULA
+            blocos_destrutiveis.append(Blocos_destrutiveis(x, y))
+
+#Falta a classe bomba aqui p passar a lista de blocos destrutíveis
+bomba = Bomba(jogador.rect.topleft, jogador.direcao, blocos_destrutiveis, mapa, jogador.alcance_bomba)
 
         
