@@ -7,11 +7,12 @@ from bomba import Bomba
 class Personagem(pygame.sprite.Sprite):
     def __init__(self, tela, x, y, blocos_destrutiveis):
         super().__init__()
+        self.colide_bomba = False
         self.blocos_destrutiveis = blocos_destrutiveis
         self.vida = 3
         self.altura = TAMANHO_CELULA-10
         self.largura = TAMANHO_CELULA-10
-        self.velocidade = 3
+        self.velocidade = 10
         self.image = pygame.image.load("sprites\Personagem.png")
         self.image = pygame.transform.scale(self.image, (self.largura, self.altura))
         self.rect = self.image.get_rect()
@@ -78,6 +79,7 @@ class Personagem(pygame.sprite.Sprite):
         sprites.remove(self.bomba.fogo4)
         sprites.remove(self.bomba.fogo5)
         self.explodir = False
+        self.colide_bomba = False
 
     def buff_speed(self):
         self.velocidade += 2
@@ -111,7 +113,7 @@ class Personagem(pygame.sprite.Sprite):
             self.rect.y = (CELULAS_ALTURA*TAMANHO_CELULA)-TAMANHO_BORDAS-self.altura
         elif self.rect.y < TAMANHO_MENU+TAMANHO_BORDAS:
            self.rect.y = TAMANHO_MENU+TAMANHO_BORDAS
-        
+        #checar colisão com nlocos indestrutíveis
         for i in range (len(blocos_indestrutiveis)):
             rect = pygame.rect.Rect(blocos_indestrutiveis[i], (TAMANHO_CELULA, TAMANHO_CELULA))
             if self.rect.colliderect(rect):
@@ -126,7 +128,7 @@ class Personagem(pygame.sprite.Sprite):
                         self.rect.y = rect.y - self.altura
                     else:
                         self.rect.y = rect.y + TAMANHO_CELULA
-
+        #checar colisão com blocos destrutíveis
         for i in range (len(blocos_destrutiveis)):
             rect = pygame.rect.Rect(blocos_destrutiveis[i], (TAMANHO_CELULA, TAMANHO_CELULA))
             if self.rect.colliderect(rect):
@@ -141,3 +143,21 @@ class Personagem(pygame.sprite.Sprite):
                         self.rect.y = rect.y - self.altura
                     else:
                         self.rect.y = rect.y + TAMANHO_CELULA
+        #checar colisão com bomba
+        if self.explodir:
+            rect = pygame.rect.Rect((self.bomba.rect.x,self.bomba.rect.y),(TAMANHO_CELULA, TAMANHO_CELULA))
+            if self.rect.colliderect(rect):
+                if self.colide_bomba:
+                    direcao = (self.x1 - rect.x,self.y1 - rect.y)
+                    if abs(direcao[0]) > abs(direcao[1]):
+                        if direcao[0] < 0:
+                            self.rect.x = rect.x - self.largura
+                        else:
+                            self.rect.x = rect.x + TAMANHO_CELULA
+                    else:
+                        if direcao[1] < 0:
+                            self.rect.y = rect.y - self.altura
+                        else:
+                            self.rect.y = rect.y + TAMANHO_CELULA
+            else:
+                self.colide_bomba = True
