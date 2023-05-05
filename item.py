@@ -1,26 +1,33 @@
 import pygame
 from constantes import *
+from pygame.sprite import Sprite
+from sprites import sprites
 
 materiais = {
-    "bomba" : (50, 50, 50),
-    "vida" : (200, 0, 0),
-    "tempo" : (200, 200, 200),
-    "velocidade" : (50, 50, 200)
+    "bomba" : "sprites\Bomba.png",
+    "vida" : "sprites\Vida.png",
+    "tempo" : 'sprites\Tempo.png',
+    "velocidade" : "sprites\Velocidade.png"
 }
 
-class Item:
+class Item(Sprite):
+
+    itens = []
 
     def __init__(self, tela, x, y, tipo: str):
         
-        self.tamanho_blocos = TAMANHO_CELULA
+        Sprite.__init__(self)
+        self.image = pygame.image.load(materiais[tipo])
+        self.image = pygame.transform.scale(self.image, (TAMANHO_CELULA, TAMANHO_CELULA))
+        self.rect = self.image.get_rect()
         self.tela = tela
         self.tipo = tipo
-        self.cor = materiais[tipo]
-        self.x = x
-        self.y = y
-        x, y = celulas[self.x][self.y]
-        self.rect = pygame.rect.Rect((x, y),(TAMANHO_CELULA, TAMANHO_CELULA))
+        self.rect.x = celulas[x][y][X]
+        self.rect.y = celulas[x][y][Y]
+        sprites.add(self)
+        Item.itens.append(self)
 
-    def desenhar(self):
-        pygame.draw.rect(self.tela, self.cor, self.rect)
+    def kill(self):
+       Item.itens.remove(self)
+       sprites.remove(self)
         

@@ -25,6 +25,7 @@ def main():
 
     player = Personagem(mapa.tela, 25, 125)
     [sprites.add(i) for i in bordas + blocos_ind + blocos_dest]
+
     
     fonte = pygame.font.SysFont('arial', 40, True, True)
 
