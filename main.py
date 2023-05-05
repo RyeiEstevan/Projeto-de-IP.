@@ -21,9 +21,9 @@ def main():
     Item(mapa.tela, 0, 2, "velocidade")
     Item(mapa.tela, 0, 5, "tempo")
     Item(mapa.tela, 3, 8, "vida")
-    Item(mapa.tela, 4, 2,"bomba")
+    Item(mapa.tela, 6, 5, "portal")
 
-    player = Personagem(mapa.tela, 25, 125)
+    player = Personagem(mapa.tela, 25, 125, blocos_dest)
     [sprites.add(i) for i in bordas + blocos_ind + blocos_dest]
 
     

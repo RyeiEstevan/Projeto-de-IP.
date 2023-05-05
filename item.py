@@ -4,10 +4,10 @@ from pygame.sprite import Sprite
 from sprites import sprites
 
 materiais = {
-    "bomba" : "sprites\Bomba.png",
     "vida" : "sprites\Vida.png",
     "tempo" : 'sprites\Tempo.png',
-    "velocidade" : "sprites\Velocidade.png"
+    "velocidade" : "sprites\Velocidade.png",
+    "portal" : "sprites\Portal.png"
 }
 
 class Item(Sprite):

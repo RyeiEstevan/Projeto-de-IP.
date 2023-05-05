@@ -5,9 +5,10 @@ from item import Item
 from bomba import Bomba
 
 class Personagem(pygame.sprite.Sprite):
-    def __init__(self, tela, x, y):
+    def __init__(self, tela, x, y, blocos_destrutiveis):
         super().__init__()
-        self.vida = 1
+        self.blocos_destrutiveis = blocos_destrutiveis
+        self.vida = 3
         self.altura = TAMANHO_CELULA-10
         self.largura = TAMANHO_CELULA-10
         self.velocidade = 3
@@ -16,7 +17,6 @@ class Personagem(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
         self.sprite = pygame.sprite.Group(self)
-        self.bombas = 1
         self.explodir = False
         self.tempo_explodir = 0
         self.bomba = 0
@@ -28,7 +28,7 @@ class Personagem(pygame.sprite.Sprite):
             if not self.explodir:
                 self.explodir = True
                 print(f"Boom bomba, local: ({self.rect.x}, {self.rect.y})")
-                self.bomba = Bomba(self.rect.x, self.rect.y)
+                self.bomba = Bomba(self.rect.x, self.rect.y, self.blocos_destrutiveis)
         if botao[pygame.K_a]:
             self.rect.x -= self.velocidade
 
@@ -59,6 +59,16 @@ class Personagem(pygame.sprite.Sprite):
     def explodir_bomba(self):
         sprites.remove(self.bomba)
         self.bomba.explodir()
+        if self.bomba.fogo1.rect.colliderect(self.rect):
+            self.vida -= 1
+        if self.bomba.fogo2.rect.colliderect(self.rect):
+            self.vida -= 1
+        if self.bomba.fogo3.rect.colliderect(self.rect):
+            self.vida -= 1
+        if self.bomba.fogo4.rect.colliderect(self.rect):
+            self.vida -= 1
+        if self.bomba.fogo5.rect.colliderect(self.rect):
+            self.vida -= 1
     
     def apagar_fogo(self):
         self.tempo_explodir = 0
@@ -73,10 +83,6 @@ class Personagem(pygame.sprite.Sprite):
         self.velocidade += 2
         print(f"velocidade: {self.velocidade}")
 
-    def add_bomba(self):
-        self.bombas += 1
-        print(f"bombas: {self.bombas}")
-
     def curar(self):
         self.vida += 1
         print(f"vida: {self.vida}")
@@ -84,12 +90,15 @@ class Personagem(pygame.sprite.Sprite):
     def tempo(self):
         self.vida -= 1
         print(f"vida: {self.vida}")
+    
+    def fim_jogo(self):
+        self.vida = 0
 
     acao = {
         "velocidade" : buff_speed,
-        "bomba" : add_bomba,
         "vida" : curar,
-        "tempo" : tempo
+        "tempo" : tempo,
+        "portal" : fim_jogo
     }
 
     def colisao(self):
