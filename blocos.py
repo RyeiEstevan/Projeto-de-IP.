@@ -35,5 +35,34 @@ class Blocos_destrutiveis(pygame.sprite.Sprite):
     
       # self.kill()
 
-     
+
+ def verificar_blocos_destrutiveis_no_alcance(self, mapa):
+        blocos_destrutiveis = []
+
+        #Verificando células na horizontal esquerda
+        for x in range(self.rect.left - self.tamanho_blocos * self.alcance, self.rect.left, self.tamanho_blocos):
+            y = self.rect.top
+            if y >= 0 and y < len(mapa) and x >= 0 and x < len(mapa[y]) and mapa[y][x] == 1:
+                blocos_destrutiveis.append((x, y))
+
+        #Verificando células na horizontal direita
+        for x in range(self.rect.right, self.rect.right + self.tamanho_blocos * self.alcance, self.tamanho_blocos):
+            y = self.rect.top
+            if y >= 0 and y < len(mapa) and x >= 0 and x < len(mapa[y]) and mapa[y][x] == 1:
+                blocos_destrutiveis.append((x, y))
+
+        #Verificando células na vertical p cima
+        for y in range(self.rect.top - self.tamanho_blocos * self.alcance, self.rect.top, self.tamanho_blocos):
+            x = self.rect.left
+            if y >= 0 and y < len(mapa) and x >= 0 and x < len(mapa[y]) and mapa[y][x] == 1:
+                blocos_destrutiveis.append((x, y))
+
+        #Verificando células na vertical p baixo
+        for y in range(self.rect.bottom, self.rect.bottom + self.tamanho_blocos * self.alcance, self.tamanho_blocos):
+            x = self.rect.left
+            if y >= 0 and y < len(mapa) and x >= 0 and x < len(mapa[y]) and mapa[y][x] == 1:
+                blocos_destrutiveis.append((x, y))
+
+        return blocos_destrutiveis
+
         
