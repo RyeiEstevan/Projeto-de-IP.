@@ -1,3 +1,5 @@
+import random
+
 TAMANHO_CELULA = 50
 CELULAS_ALTURA = 14
 CELULAS_LARGURA = 16
@@ -27,5 +29,12 @@ for i in range (MAPA_ALTURA):
 
 
 
-
-
+mapa2 = [[0 for j in range(MAPA_LARGURA)] for i in range(MAPA_ALTURA)]
+num_blocos_destrutiveis = 50
+blocos_destrutiveis = []
+i
+for i in range(num_blocos_destrutiveis):
+    x = random.randint(0, MAPA_ALTURA - 1)
+    y = random.randint(0, MAPA_LARGURA - 1)
+    if (celulas[x][y] != celulas[0][0] and celulas[x][y] != celulas[0][1] and celulas[x][y] != celulas[1][0]) and celulas[x][y] not in blocos_indestrutiveis:
+        blocos_destrutiveis.append(celulas[x][y])
