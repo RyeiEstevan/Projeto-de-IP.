@@ -12,7 +12,7 @@ class Personagem(pygame.sprite.Sprite):
         self.vida = 3
         self.altura = TAMANHO_CELULA-10
         self.largura = TAMANHO_CELULA-10
-        self.velocidade = 10
+        self.velocidade = 5
         self.image = pygame.image.load("sprites\Personagem.png")
         self.image = pygame.transform.scale(self.image, (self.largura, self.altura))
         self.rect = self.image.get_rect()
@@ -82,7 +82,7 @@ class Personagem(pygame.sprite.Sprite):
         self.colide_bomba = False
 
     def buff_speed(self):
-        self.velocidade += 2
+        self.velocidade += 5
         print(f"velocidade: {self.velocidade}")
 
     def curar(self):
