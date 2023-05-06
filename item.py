@@ -14,7 +14,7 @@ class Item(Sprite):
 
     itens = []
 
-    def __init__(self, tela, x, y, tipo: str):
+    def __init__(self, tela, cel, tipo: str):
         
         Sprite.__init__(self)
         self.image = pygame.image.load(materiais[tipo])
@@ -22,8 +22,8 @@ class Item(Sprite):
         self.rect = self.image.get_rect()
         self.tela = tela
         self.tipo = tipo
-        self.rect.x = celulas[x][y][X]
-        self.rect.y = celulas[x][y][Y]
+        self.rect.x = cel[X]
+        self.rect.y = cel[Y]
         sprites.add(self)
         Item.itens.append(self)
 
