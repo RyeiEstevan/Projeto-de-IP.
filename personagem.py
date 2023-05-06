@@ -19,10 +19,12 @@ class Personagem(pygame.sprite.Sprite):
         self.rect.topleft = x, y
         self.sprite = pygame.sprite.Group(self)
         self.explodir = False
+        self.buff_tempo = 0
         self.tempo_explodir = 0
         self.bomba = 0
 
     def update(self):
+        self.buff_tempo = 0
         self.x1 = self.rect.x ; self.y1 = self.rect.y
         botao = pygame.key.get_pressed()
         if botao[pygame.K_SPACE]:
@@ -51,11 +53,12 @@ class Personagem(pygame.sprite.Sprite):
                 self.apagar_fogo()
         
         self.colisao()
-
+        
         for i in Item.itens:
             if self.rect.colliderect(i):
                 self.acao[i.tipo](self)
                 i.kill()
+        
 
     def explodir_bomba(self):
         sprites.remove(self.bomba)
@@ -83,15 +86,12 @@ class Personagem(pygame.sprite.Sprite):
 
     def buff_speed(self):
         self.velocidade += 5
-        print(f"velocidade: {self.velocidade}")
 
     def curar(self):
         self.vida += 1
-        print(f"vida: {self.vida}")
 
     def tempo(self):
-        self.vida -= 1
-        print(f"vida: {self.vida}")
+        self.buff_tempo = 30
     
     def fim_jogo(self):
         self.vida = 0
