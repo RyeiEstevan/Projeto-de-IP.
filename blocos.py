@@ -11,7 +11,6 @@ class Blocos_indestrutiveis(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (self.tamanho_blocos, self.tamanho_blocos))
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
-
      
 class Blocos_destrutiveis(pygame.sprite.Sprite):
     def __init__(self, x, y):
@@ -22,4 +21,3 @@ class Blocos_destrutiveis(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (self.tamanho_blocos, self.tamanho_blocos))
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
-
