@@ -67,8 +67,6 @@ def main():
             tempo += 60
         if player.vida <= 0:
             Rodar = False
-            over()
-
 
 def start():
     largura = CELULAS_LARGURA*TAMANHO_CELULA
