@@ -30,7 +30,7 @@ def main():
     fonte = pygame.font.SysFont('arial', 40, True, True)
 
     # Gerando o timer
-
+    tempo = 60
     timer = Timer()
 
     #Iniciando pygame e loop para o jogo ficar rodando até fecharem
@@ -38,10 +38,10 @@ def main():
     Rodar = True
     pygame.init()
     while Rodar:
-        timer.__str__()
-        timer_impressao = f'{timer.sec}'
+        timer.__str__() ; tempo += player.buff_tempo
+        timer_impressao = f'{tempo-int(timer.sec)}s'
         texto_timer = fonte.render(timer_impressao, False, (255, 255, 255))
-        mensagem = f'Vida: {player.vida}'
+        mensagem = f'{player.vida}'
         mapa.tela.fill((0,0,0))
         texto_formatado = fonte.render(mensagem, False, (255, 255, 255))
         mapa.tela.blit(mapa.background, (0, TAMANHO_BORDAS+TAMANHO_MENU))
@@ -49,16 +49,22 @@ def main():
             if event.type == pygame.QUIT:
                 Rodar == False
                 exit()
-        mapa.tela.blit(texto_timer, (TAMANHO_CELULA*CELULAS_LARGURA - 100,0))
-        mapa.tela.blit(texto_formatado, (0,0))
+        mapa.tela.blit(texto_timer, (TAMANHO_CELULA*CELULAS_LARGURA - 100 -TAMANHO_CELULA//2,0))
+        mapa.tela.blit(texto_formatado, (50,0))
         player.sprite.draw(mapa.tela)
         sprites.draw(mapa.tela)
         sprites.update()
         player.sprite.update()
+
+        mapa.tela.blit(mapa.relogio, (TAMANHO_CELULA*CELULAS_LARGURA-50, 0))
+        mapa.tela.blit(mapa.coração, (0, 0))
         pygame.display.update()
         clock.tick(60)
 
+        if tempo-int(timer.sec) < 0:
+            player.vida -= 1
+            tempo += 60
         if player.vida <= 0:
-            Rodar = False
+            exit() #Botar tela de game over
 
 main()
