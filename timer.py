@@ -14,4 +14,4 @@ class Timer:
 
     def __str__(self):
         value = self.get()
-        self.sec = str(int(value)) + "s"
+        self.sec = str(int(value))
