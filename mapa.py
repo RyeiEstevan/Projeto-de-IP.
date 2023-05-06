@@ -10,12 +10,17 @@ class Mapa:
         self.largura_menu = largura_menu
         self.largura_bordas = largura_bordas
         self.background = pygame.image.load("sprites\Back.png")
+        self.coração = pygame.image.load("sprites\Vida.png")
+        self.coração = pygame.transform.scale(self.coração, (TAMANHO_CELULA, TAMANHO_CELULA))
+        self.relogio = pygame.image.load("sprites\Tempo.png")
+        self.relogio = pygame.transform.scale(self.relogio, (TAMANHO_CELULA, TAMANHO_CELULA))
         self.background = pygame.transform.scale(self.background, (CELULAS_LARGURA*TAMANHO_CELULA, CELULAS_LARGURA*TAMANHO_CELULA))
 
         #Criando a tela do jogo e dando nome a ela
         self.tela = pygame.display.set_mode((largura, altura)) 
         #pygame.display.flip()
         pygame.display.set_caption("CINberman")
+        
         self.bordas = []
        
         #Criando as 4 bordas e salvando elas numa lista para checar colisão depois
