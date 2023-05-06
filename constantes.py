@@ -29,10 +29,9 @@ for i in range (MAPA_ALTURA):
 
 
 
-mapa2 = [[0 for j in range(MAPA_LARGURA)] for i in range(MAPA_ALTURA)]
-num_blocos_destrutiveis = 50
+
+num_blocos_destrutiveis = 120
 blocos_destrutiveis = []
-i
 for i in range(num_blocos_destrutiveis):
     x = random.randint(0, MAPA_ALTURA - 1)
     y = random.randint(0, MAPA_LARGURA - 1)
