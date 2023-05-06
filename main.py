@@ -18,10 +18,10 @@ def main():
     blocos_ind = [Blocos_indestrutiveis(i[0], i[1]) for i in blocos_indestrutiveis]
     blocos_dest = [Blocos_destrutiveis(i[0], i[1]) for i in blocos_destrutiveis]
 
-    Item(mapa.tela, 0, 2, "velocidade")
-    Item(mapa.tela, 0, 5, "tempo")
-    Item(mapa.tela, 3, 8, "vida")
-    Item(mapa.tela, 6, 5, "portal")
+    Item(mapa.tela, items_posição[0], "velocidade")
+    Item(mapa.tela, items_posição[1], "tempo")
+    Item(mapa.tela, items_posição[2], "vida")
+    Item(mapa.tela, items_posição[3], "portal")
 
     player = Personagem(mapa.tela, 25, 125, blocos_dest)
     [sprites.add(i) for i in bordas + blocos_ind + blocos_dest]
