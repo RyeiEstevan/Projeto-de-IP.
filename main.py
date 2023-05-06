@@ -7,6 +7,7 @@ from personagem import Personagem
 from item import Item
 from sprites import sprites
 from timer import Timer
+from inimigos import Inimigo
 
 
 def main():
@@ -24,6 +25,7 @@ def main():
     Item(mapa.tela, items_posição[2], "vida")
     Item(mapa.tela, items_posição[3], "portal")
 
+    inimigo = Inimigo(mapa.tela, 25, 175, "polemonio")
     player = Personagem(mapa.tela, 25, 125, blocos_dest)
     [sprites.add(i) for i in bordas + blocos_ind + blocos_dest]
 
