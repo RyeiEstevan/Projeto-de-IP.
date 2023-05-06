@@ -8,6 +8,7 @@ from item import Item
 from sprites import sprites
 from timer import Timer
 
+
 def main():
 
     #Criando objetos e o grupo de seus sprites
@@ -65,6 +66,32 @@ def main():
             player.vida -= 1
             tempo += 60
         if player.vida <= 0:
-            exit() #Botar tela de game over
+            Rodar = False
+            over()
 
-main()
+
+def start():
+    largura = CELULAS_LARGURA*TAMANHO_CELULA
+    altura = CELULAS_ALTURA*TAMANHO_CELULA
+    tela_start = pygame.display.set_mode((largura, altura)) 
+    start_back = pygame.image.load("sprites\Tela_inicial1.jpg")
+    start_back = pygame.transform.scale(start_back, (largura, altura))
+    pygame.display.set_caption("CINberman - Start_screen")
+    pygame.init()
+    no_menu = True
+    while no_menu:
+        tela_start.blit(start_back, (0,0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                no_menu == False
+                exit()
+        botao = pygame.key.get_pressed()
+        if botao[pygame.K_RETURN]:
+            no_menu = False
+            main()
+        if botao[pygame.K_ESCAPE]:
+            no_menu = False
+            exit()
+        pygame.display.update()
+
+start()
