@@ -3,7 +3,7 @@ from pygame.sprite import Group
 sprites = Group()
 
 sprite = {
-    "fundo" : "sprites\Back.png",
+    "back" : "sprites\Back.png",
     "bloco_destruido": "Bloco_destruido.png",
     "bloco_destrutivel": "sprites\Bloco_destrutivel.png",
     "bloco_indestrutivel": "sprites\Blocos_indestrutiveis.png",
