@@ -7,7 +7,14 @@ from entidades import Entidade
 
 class Inimigo(Entidade):
 
-    def __init__(self, x, y, tipo, blocos_destrutiveis):
+    def __init__(self, tipo, blocos_destrutiveis):
+        pos_valida = False
+        while pos_valida == False:
+            x = random.randint(0, MAPA_ALTURA - 1)
+            y = random.randint(0, MAPA_LARGURA - 1)
+            if (x > 1 or y > 1) and celulas[x][y] not in blocos_indestrutiveis + blocos_destrutiveis:
+                x, y = celulas[x][y]
+                pos_valida = True
         super().__init__(x, y, TAMANHO_CELULA, blocos_destrutiveis, "polemonio")
 
         self.direcao = random.choice(["esquerda", "direita", "cima", "baixo"])
