@@ -8,7 +8,7 @@ class Blocos_indestrutiveis(pygame.sprite.Sprite):
 
         #Definindo tamanho dos blocos, sua cor e onde serão salvos
         self.tamanho_blocos = TAMANHO_CELULA
-        self.image = pygame.image.load()
+        self.image = pygame.image.load(sprite["bloco_indestrutivel"])
         self.image = pygame.transform.scale(self.image, (self.tamanho_blocos, self.tamanho_blocos))
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
