@@ -10,7 +10,7 @@ class Mapa:
         self.largura = largura
         self.largura_menu = largura_menu
         self.largura_bordas = largura_bordas
-        self.background = pygame.image.load(sprite["fundo"])
+        self.background = pygame.image.load(sprite["back"])
         self.coração = pygame.image.load(sprite["vida"])
         self.coração = pygame.transform.scale(self.coração, (TAMANHO_CELULA, TAMANHO_CELULA))
         self.relogio = pygame.image.load(sprite["tempo"])
