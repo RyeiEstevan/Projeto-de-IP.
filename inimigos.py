@@ -4,6 +4,7 @@ from pygame.sprite import Sprite
 import random
 from sprites import sprites
 from constantes import *
+from mapa import blocos_destrutiveis
 
 class Inimigo(Sprite):
 
