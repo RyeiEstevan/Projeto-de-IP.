@@ -8,7 +8,6 @@ from sprites import sprites
 from timer import Timer
 from inimigos import Inimigo
 
-
 def main():
 
     #Criando objetos e o grupo de seus sprites
