@@ -15,5 +15,6 @@ sprite = {
     "portal": "sprites\Portal.png",
     "tempo": "sprites\Tempo.png",
     "velocidade": "sprites\Velocidade.png",
-    "vida": "sprites\Vida.png"
+    "vida": "sprites\Vida.png",
+    "inicio": "sprites\Tela_inicial1.jpg"
 }

@@ -4,7 +4,7 @@ from mapa import Mapa,  Bordas, blocos_destrutiveis, items_posição
 from blocos import Blocos_indestrutiveis, Blocos_destrutiveis
 from personagem import Personagem
 from item import Item
-from sprites import sprites
+from sprites import *
 from timer import Timer
 from inimigos import Inimigo
 
@@ -72,7 +72,7 @@ def start():
     largura = CELULAS_LARGURA*TAMANHO_CELULA
     altura = CELULAS_ALTURA*TAMANHO_CELULA
     tela_start = pygame.display.set_mode((largura, altura)) 
-    start_back = pygame.image.load("sprites\Tela_inicial1.jpg")
+    start_back = pygame.image.load(sprite["inicio"])
     start_back = pygame.transform.scale(start_back, (largura, altura))
     pygame.display.set_caption("CINberman - Start_screen")
     pygame.init()
