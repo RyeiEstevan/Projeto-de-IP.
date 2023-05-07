@@ -60,7 +60,7 @@ class Entidade(Sprite):
             else:
                 self.colide_bomba = True
 
-    def restringir_posicao(self, rect):
+    def restringir_posicao(self, rect: Rect):
         direcao = (self.x1 - rect.x,self.y1 - rect.y)
         if abs(direcao[0]) > abs(direcao[1]):
             if direcao[0] < 0:
