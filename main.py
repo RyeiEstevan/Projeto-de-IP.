@@ -23,7 +23,7 @@ def main():
     Item(mapa.tela, items_posição[2], "vida")
     Item(mapa.tela, items_posição[3], "portal")
 
-    inimigo = Inimigo(25, 175, "polemonio", blocos_dest)
+    inimigo = Inimigo("polemonio", blocos_dest)
     player = Personagem(25, 125, blocos_dest)
     [sprites.add(i) for i in bordas + blocos_ind + blocos_dest]
 
