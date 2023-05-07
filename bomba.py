@@ -1,11 +1,11 @@
 import pygame
 from constantes import *
-from sprites import sprites
+from sprites import sprites, sprite
 
 class Bomba(pygame.sprite.Sprite):
     def __init__(self,x, y, blocos_destrutiveis):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("sprites\Bomba.png")
+        self.image = pygame.image.load(sprite["bomba"])
         self.image = pygame.transform.scale(self.image, (TAMANHO_CELULA, TAMANHO_CELULA))
         self.rect = self.image.get_rect()
         self.quebrar = blocos_destrutiveis
@@ -31,7 +31,7 @@ class Bomba(pygame.sprite.Sprite):
 class Fogo(pygame.sprite.Sprite):
     def __init__(self,x, y, quebrar):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("sprites\Fogo.png")
+        self.image = pygame.image.load(sprite["fogo"])
         self.image = pygame.transform.scale(self.image, (TAMANHO_CELULA, TAMANHO_CELULA))
         self.rect = self.image.get_rect()
         self.rect.x = x

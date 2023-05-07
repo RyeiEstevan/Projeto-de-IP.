@@ -1,5 +1,6 @@
 import pygame
 from constantes import *
+from sprites import sprite
 
 class Blocos_indestrutiveis(pygame.sprite.Sprite):
     def __init__(self, x, y):
@@ -7,7 +8,7 @@ class Blocos_indestrutiveis(pygame.sprite.Sprite):
 
         #Definindo tamanho dos blocos, sua cor e onde serão salvos
         self.tamanho_blocos = TAMANHO_CELULA
-        self.image = pygame.image.load("sprites\Blocos_indestrutiveis.png")
+        self.image = pygame.image.load()
         self.image = pygame.transform.scale(self.image, (self.tamanho_blocos, self.tamanho_blocos))
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
@@ -17,7 +18,7 @@ class Blocos_destrutiveis(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.tamanho_blocos = TAMANHO_CELULA
-        self.image = pygame.image.load("sprites\Bloco_destrutivel.png")
+        self.image = pygame.image.load(sprite["bloco_destrutivel"])
         self.image = pygame.transform.scale(self.image, (self.tamanho_blocos, self.tamanho_blocos))
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y

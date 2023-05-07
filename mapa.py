@@ -1,5 +1,6 @@
 import pygame
 from constantes import *
+from sprites import sprite
 
 class Mapa:
     def __init__(self, altura, largura, largura_menu, largura_bordas):
@@ -9,10 +10,10 @@ class Mapa:
         self.largura = largura
         self.largura_menu = largura_menu
         self.largura_bordas = largura_bordas
-        self.background = pygame.image.load("sprites\Back.png")
-        self.coração = pygame.image.load("sprites\Vida.png")
+        self.background = pygame.image.load(sprite["fundo"])
+        self.coração = pygame.image.load(sprite["vida"])
         self.coração = pygame.transform.scale(self.coração, (TAMANHO_CELULA, TAMANHO_CELULA))
-        self.relogio = pygame.image.load("sprites\Tempo.png")
+        self.relogio = pygame.image.load(sprite["tempo"])
         self.relogio = pygame.transform.scale(self.relogio, (TAMANHO_CELULA, TAMANHO_CELULA))
         self.background = pygame.transform.scale(self.background, (CELULAS_LARGURA*TAMANHO_CELULA, CELULAS_LARGURA*TAMANHO_CELULA))
 
@@ -39,7 +40,7 @@ class Mapa:
 class Bordas(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("sprites\Bordas.png")
+        self.image = pygame.image.load(sprite["bordas"])
         self.image = pygame.transform.scale(self.image, (TAMANHO_BORDAS, TAMANHO_BORDAS))
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
