@@ -1,7 +1,6 @@
 import pygame
 from constantes import *
-from mapa import Mapa
-from mapa import Bordas
+from mapa import Mapa,  Bordas, blocos_destrutiveis, items_posição
 from blocos import Blocos_indestrutiveis, Blocos_destrutiveis
 from personagem import Personagem
 from item import Item

@@ -5,7 +5,9 @@ from item import Item
 from bomba import Bomba
 from pygame.rect import Rect
 from pygame.sprite import Sprite, Group
+<<<<<<< HEAD
 from entidades import Entidade
+from mapa import blocos_destrutiveis
 
 class Personagem(Entidade):
     def __init__(self, x, y, blocos_destrutiveis):

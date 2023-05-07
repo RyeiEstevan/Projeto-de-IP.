@@ -44,5 +44,22 @@ class Bordas(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (TAMANHO_BORDAS, TAMANHO_BORDAS))
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
-            
-        
+
+#geração das posições de blocos destrutíveis  
+blocos_destrutiveis = []
+for i in range(NUM_BLOCOS_DESTRUTIVEIS):
+    x = random.randint(0, MAPA_ALTURA - 1)
+    y = random.randint(0, MAPA_LARGURA - 1)
+    if (celulas[x][y] != celulas[0][0] and celulas[x][y] != celulas[0][1] and celulas[x][y] != celulas[1][0]) and celulas[x][y] not in blocos_indestrutiveis:
+        blocos_destrutiveis.append(celulas[x][y])
+
+#geração das posições de itens
+items_posição = []
+ja_tem = False
+for i in range (4):
+    while not ja_tem:
+        sorteado = random.randint(0, len(blocos_destrutiveis)-1)
+        if blocos_destrutiveis[sorteado] not in items_posição:
+            ja_tem = True
+    ja_tem = False
+    items_posição.append(blocos_destrutiveis[sorteado])
