@@ -1,6 +1,7 @@
 import pygame
 from constantes import *
 from sprites import sprites, sprite
+from mapa import blocos_destrutiveis
 
 class Bomba(pygame.sprite.Sprite):
     def __init__(self,x, y, blocos_destrutiveis):
