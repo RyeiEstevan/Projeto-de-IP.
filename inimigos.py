@@ -7,10 +7,12 @@ from entidades import Entidade
 
 class Inimigo(Entidade):
 
+    DIRECOES = ["esquerda", "direita", "cima", "baixo"]
+
     def __init__(self, x, y, tipo, blocos_destrutiveis):
         super().__init__(x, y, TAMANHO_CELULA, blocos_destrutiveis, "polemonio")
 
-        self.direcao = random.choice(["esquerda", "direita", "cima", "baixo"])
+        self.direcao = random.choice(__class__.DIRECOES)
         self.colide = False
         self.velocidade = 2
         self.image = transform.scale(image.load(sprite[tipo]), (TAMANHO_CELULA, TAMANHO_CELULA))
@@ -38,37 +40,38 @@ class Inimigo(Entidade):
 
         if self.direcao == 'cima':
             self.rect.y = rect.y + TAMANHO_CELULA
-            self.direcao = random.choice(["cima", "baixo", "esquerda", "direita"])
 
         elif(self.direcao == 'baixo'):
             self.rect.y = rect.y - TAMANHO_CELULA
-            self.direcao = random.choice(["cima", "baixo", "esquerda", "direita"])
 
         elif(self.direcao == 'esquerda'):
             self.rect.x = rect.x + TAMANHO_CELULA
-            self.direcao = random.choice(["cima", "baixo", "esquerda", "direita"])
 
         else:
             self.rect.x = rect.x - TAMANHO_CELULA
-            self.direcao = random.choice(["cima", "baixo", "esquerda", "direita"])
+
+        self.mudar_direcao()
+
+    def mudar_direcao(self):
+        self.direcao = random.choice([x for x in __class__.DIRECOES if x is not self.direcao])
 
     def colisao_bordas(self):
 
         if self.rect.x > (CELULAS_LARGURA*TAMANHO_CELULA)-TAMANHO_BORDAS-TAMANHO_CELULA:
             self.rect.x = (CELULAS_LARGURA*TAMANHO_CELULA)-TAMANHO_BORDAS-TAMANHO_CELULA
-            self.direcao = random.choice(["cima", "baixo", "esquerda", "direita"])
+            self.mudar_direcao()
             
 
         elif self.rect.x < TAMANHO_BORDAS:
             self.rect.x = TAMANHO_BORDAS
-            self.direcao = random.choice(["cima", "baixo", "esquerda", "direita"])
+            self.mudar_direcao()
             
 
         if self.rect.y > (CELULAS_ALTURA*TAMANHO_CELULA)-TAMANHO_BORDAS-TAMANHO_CELULA:
             self.rect.y = (CELULAS_ALTURA*TAMANHO_CELULA)-TAMANHO_BORDAS-TAMANHO_CELULA
-            self.direcao = random.choice(["cima", "baixo", "esquerda", "direita"])
+            self.mudar_direcao()
             
 
         elif self.rect.y < TAMANHO_MENU+TAMANHO_BORDAS:
             self.rect.y = TAMANHO_MENU+TAMANHO_BORDAS
-            self.direcao = random.choice(["cima", "baixo", "esquerda", "direita"])
+            self.mudar_direcao()
