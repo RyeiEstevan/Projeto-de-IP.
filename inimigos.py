@@ -1,14 +1,9 @@
 from pygame import transform, image
-import pygame
-from pygame.sprite import Sprite
 import random
 from sprites import *
 from constantes import *
-<<<<<<< HEAD
-from entidades import Entidade
-=======
 from mapa import blocos_destrutiveis
->>>>>>> 0a4bc1f134c05ada09a58b753cb74da4a0bb57d6
+from entidades import Entidade
 
 class Inimigo(Entidade):
 

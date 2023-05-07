@@ -3,9 +3,7 @@ from constantes import *
 from sprites import sprites, sprite
 from item import Item
 from bomba import Bomba
-from pygame.rect import Rect
-from pygame.sprite import Sprite, Group
-<<<<<<< HEAD
+from pygame.sprite import Group
 from entidades import Entidade
 from mapa import blocos_destrutiveis
 
