@@ -26,6 +26,7 @@ def main():
     Item(mapa.tela, items_posição[1], "tempo")
     Item(mapa.tela, items_posição[2], "vida")
     Item(mapa.tela, items_posição[3], "portal")
+    Item(mapa.tela, items_posição[4], "item_bomba")
 
     numero_inimigos = 4
     for _ in range(numero_inimigos):
