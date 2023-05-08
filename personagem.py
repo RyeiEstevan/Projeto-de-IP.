@@ -12,15 +12,14 @@ class Personagem(Entidade):
 
     def __init__(self, x, y, blocos_destrutiveis):
         super().__init__(x, y, TAMANHO_CELULA-10, blocos_destrutiveis, "personagem")
-        self.velocidade = 5
+        self.velocidade = 3
         self.sprite = Group(self)
         self.explodir = False
-        self.colide_bomba = False
         self.blocos_destrutiveis = blocos_destrutiveis
         self.vida = 3
         self.buff_tempo = 0
         self.tempo_explodir = 0
-        self.bomba = 0
+        self.maximo_bombas = 1
         self.portal = False
         #self.adicionar_colisao(blocos_destrutiveis, blocos_indestrutiveis)
 
@@ -38,11 +37,15 @@ class Personagem(Entidade):
         self.buff_tempo = 0
         self.x1 = self.rect.x ; self.y1 = self.rect.y
         botao = pygame.key.get_pressed()
+
         if botao[pygame.K_SPACE]:
-            if not self.explodir:
+            if len(Bomba.bombas) < self.maximo_bombas:
+                self.dentro_bomba = True
+                for i in vilao:
+                    i.dentro_bomba = True
                 bomba_barulho = pygame.mixer.Sound("sons\Colocar bomba.wav")
                 self.explodir = True
-                self.bomba = Bomba(self.rect.x, self.rect.y, self.blocos_destrutiveis)
+                Bomba(self.rect.x, self.rect.y, self.blocos_destrutiveis)
                 bomba_barulho.play()
 
         if botao[pygame.K_a]:
@@ -55,18 +58,7 @@ class Personagem(Entidade):
             self.rect.y -= self.velocidade
 
         if botao[pygame.K_s]:
-            self.rect.y += self.velocidade       
- 
-
-        if self.explodir:        
-            self.tempo_explodir += 1
-            if self.tempo_explodir == 180:
-                explosao = pygame.mixer.Sound("sons\Explosão.wav")
-                self.explodir_bomba()
-                explosao.play()
-
-            elif self.tempo_explodir == 240:
-                self.apagar_fogo()
+            self.rect.y += self.velocidade
         
         self.colisao(blocos_destrutiveis, blocos_indestrutiveis)
         for i in Item.itens:
@@ -74,33 +66,8 @@ class Personagem(Entidade):
                 self.acao[i.tipo](self)
                 i.kill()
 
-    def explodir_bomba(self):
-        sprites.remove(self.bomba)
-        self.bomba.explodir()
-        if self.bomba.fogo1.rect.colliderect(self.rect):
-            self.dano()
-        if self.bomba.fogo2.rect.colliderect(self.rect):
-            self.dano()
-        if self.bomba.fogo3.rect.colliderect(self.rect):
-            self.dano()
-        if self.bomba.fogo4.rect.colliderect(self.rect):
-            self.dano()
-        if self.bomba.fogo5.rect.colliderect(self.rect):
-            self.dano()
-    
-    def apagar_fogo(self):
-        Fogo.fogo = []
-        self.tempo_explodir = 0
-        sprites.remove(self.bomba.fogo1)
-        sprites.remove(self.bomba.fogo2)
-        sprites.remove(self.bomba.fogo3)
-        sprites.remove(self.bomba.fogo4)
-        sprites.remove(self.bomba.fogo5)
-        self.explodir = False
-        self.colide_bomba = False
-
     def buff_speed(self):
-        self.velocidade += 5
+        self.velocidade += 3
 
     def curar(self):
         self.vida += 1
