@@ -14,6 +14,7 @@ MAPA_LARGURA = CELULAS_LARGURA - int( (TAMANHO_BORDAS*2)/TAMANHO_CELULA )
 celulas = [] #celulas será uma matriz com a coordenada de cada celula
 c = []
 y = TAMANHO_MENU + TAMANHO_BORDAS
+
 #gerando a matriz do mapa
 for i in range (MAPA_ALTURA):
     x = TAMANHO_BORDAS
@@ -22,6 +23,7 @@ for i in range (MAPA_ALTURA):
         x += TAMANHO_CELULA
     celulas.append(c) ; c = []
     y += TAMANHO_CELULA
+
 #gerando uma lista com as coordenadas dos blocos indestrutíveis
 blocos_indestrutiveis = []
 for i in range (MAPA_ALTURA):
@@ -29,6 +31,5 @@ for i in range (MAPA_ALTURA):
         if i%2 != 0 and a%2 != 0:
             x = celulas[i][a][X] ; y = celulas[i][a][Y]
             blocos_indestrutiveis.append((x, y))
-
 
 NUM_BLOCOS_DESTRUTIVEIS = 80

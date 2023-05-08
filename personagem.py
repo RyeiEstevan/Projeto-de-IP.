@@ -15,11 +15,9 @@ class Personagem(Entidade):
         super().__init__(x, y, TAMANHO_CELULA-10, blocos_destrutiveis, "personagem")
         self.velocidade = 3
         self.sprite = Group(self)
-        self.explodir = False
         self.blocos_destrutiveis = blocos_destrutiveis
         self.vida = 3
         self.buff_tempo = 0
-        self.tempo_explodir = 0
         self.maximo_bombas = 1
         self.portal = False
     #Atualiza os status do personagem, como a movimentação, checa a colisão com os inimigos, o fogo e os blocos
@@ -44,7 +42,6 @@ class Personagem(Entidade):
                 for i in vilao:
                     i.dentro_bomba = True
                 bomba_barulho = pygame.mixer.Sound("sons\Colocar bomba.wav")
-                self.explodir = True
                 Bomba(self.rect.x, self.rect.y, self.blocos_destrutiveis)
                 bomba_barulho.play()
 

@@ -23,11 +23,6 @@ class Inimigo(Entidade):
         #Gerando as caracteristicas do inimigo
         super().__init__(x, y, TAMANHO_CELULA, blocos_destrutiveis, "polemonio")
         self.direcao = random.choice(__class__.DIRECOES)
-        self.colide = False
-        self.vida = 1
-        self.velocidade = 1
-        self.image = transform.scale(image.load(sprite[tipo]), (TAMANHO_CELULA, TAMANHO_CELULA))
-        self.rect = self.image.get_rect()
         self.rect.topleft = x, y
         #Lista contenco os inimigos
         vilao.add(self)

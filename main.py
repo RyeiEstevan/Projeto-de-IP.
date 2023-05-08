@@ -20,16 +20,17 @@ def main():
     bordas = [Bordas(i[0], i[1]) for i in mapa.bordas]
     blocos_ind = [Blocos_indestrutiveis(i[0], i[1]) for i in blocos_indestrutiveis]
     blocos_dest = [Blocos_destrutiveis(i[0], i[1]) for i in blocos_destrutiveis]
+
     #Criando os itens
-    Item(mapa.tela, items_posição[0], "velocidade")
-    Item(mapa.tela, items_posição[1], "tempo")
-    Item(mapa.tela, items_posição[2], "vida")
-    Item(mapa.tela, items_posição[3], "portal")
-    Item(mapa.tela, items_posição[4], "item_bomba")
+    itens = ["velocidade", "tempo", "vida", "portal", "item_bomba"]
+    for i, tipo in enumerate(itens):
+        Item(mapa.tela, items_posição[i], tipo)
+
     #Criando os inimigos
     numero_inimigos = 4
     for _ in range(numero_inimigos):
         Inimigo("polemonio", blocos_dest)
+
     #Criando o personagem
     player = Personagem(25, 125, blocos_dest)
     [sprites.add(i) for i in bordas + blocos_ind + blocos_dest]
@@ -45,20 +46,24 @@ def main():
     clock = pygame.time.Clock()
     Rodar = True
     pygame.init()
+
     while Rodar:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                Rodar == False
+                exit()
+                
         #Gerando o timer na tela
         timer.__str__() ; tempo += player.buff_tempo
         timer_impressao = f'{tempo-int(timer.sec)}s'
         texto_timer = fonte.render(timer_impressao, False, (255, 255, 255))
+
         #Gerando a vida na tela
         mensagem = f'{player.vida}'
         mapa.tela.fill((0,0,0))
         texto_formatado = fonte.render(mensagem, False, (255, 255, 255))
         mapa.tela.blit(mapa.background, (0, TAMANHO_BORDAS+TAMANHO_MENU))
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                Rodar == False
-                exit()
+        
         #Desenhando os sprites na tela
         vilao.draw(mapa.tela)
         vilao.update()
@@ -68,23 +73,28 @@ def main():
         sprites.draw(mapa.tela)
         sprites.update()
         player.sprite.update()
+
         #Desenhando os sprites do relogio e do coração
         mapa.tela.blit(mapa.relogio, (TAMANHO_CELULA*CELULAS_LARGURA-50, 0))
         mapa.tela.blit(mapa.coração, (0, 0))
         pygame.display.update()
         clock.tick(60)
+
         #Checa se o tempo acabou, reseta o timer e dá dano no personagem
         if tempo-int(timer.sec) < 0:
             player.dano()
             tempo += 60
+
         #checa se o personagem ainda tem vidas
         if player.vida <= 0:
             Rodar = False
-            win_lose(0)
+            win_lose("perdeu")
+
         #Acaba o jogo quando o personagem encontra o portal
         elif player.portal:
             Rodar = False
-            win_lose(1)
+            win_lose("ganhou")
+
         #Depois de perder ou ganhar, se você apertar qualquer botão do teclado, a tela é fechada automaticamente
 
 #Tela de início
@@ -111,12 +121,9 @@ def start():
             no_menu = False
             exit()
         pygame.display.update()
+
 #Tela de fim de jogo, tanto de derrota quanto para vitória
 def win_lose(W_L):
-    if W_L == 1:
-        W_L = "ganhou"
-    elif W_L == 0:
-        W_L = "perdeu"
     largura = CELULAS_LARGURA*TAMANHO_CELULA
     altura = CELULAS_ALTURA*TAMANHO_CELULA
     tela_wl = pygame.display.set_mode((largura, altura)) 
