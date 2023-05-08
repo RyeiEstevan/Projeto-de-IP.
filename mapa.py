@@ -1,3 +1,4 @@
+import random
 import pygame
 from constantes import *
 from sprites import sprite
