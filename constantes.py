@@ -28,4 +28,4 @@ for i in range (MAPA_ALTURA):
             blocos_indestrutiveis.append((x, y))
 
 
-NUM_BLOCOS_DESTRUTIVEIS = 120
+NUM_BLOCOS_DESTRUTIVEIS = 80
