@@ -7,28 +7,29 @@ from sprites import sprite
 from bomba import Bomba
 
 class Entidade(Sprite):
-
+    #Gerando todas as caracteristicas da entidade
     def __init__(self, x, y, tamanho, blocos_destrutiveis, tipo):
         super().__init__()
         self.altura = tamanho
         self.largura = tamanho
         self.velocidade = 1
-        self.vida = 5
+        self.vida = 3
         self.image = image.load(sprite[tipo])
         self.image = transform.scale(self.image, (self.largura, self.altura))
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
+        #variável para checar se a entidade está na mesma posição que a bomba
         self.dentro_bomba = False
         self.blocos_destrutiveis = blocos_destrutiveis
-        self.vida = 3
+        #variável que para marcar a quantidade de tempo que o personagem fica invencível após levar dano
         self.frames_invenciveis_restantes = 60
-
+    #Definindo dano para, quando a função for chamada, checar se está invencível e retirar a vida, além de colocar o som do dano
     def dano(self):
         if self.frames_invenciveis_restantes == 0:
             self.vida -= 1
             Sound("sons\Dano.wav").play()
             self.frames_invenciveis_restantes = 120
-        
+    #Definindo a função que muda a posição do personagem
     def mover(self):
 
         if self.direcao == "esquerda":
@@ -43,7 +44,7 @@ class Entidade(Sprite):
         if self.direcao == "cima":
             self.rect.y -= self.velocidade  
 
-
+    #Definindo a função que checa as colisões com os blocos e a bomba
     def colisao(self, *args: list[list]):
 
         self.colisao_bordas()
@@ -67,6 +68,7 @@ class Entidade(Sprite):
         if not colidiu:
             self.dentro_bomba = False
 
+    #Restringe a posição após colocar a bomba
     def restringir_posicao(self, rect: Rect):
         direcao = (self.x1 - rect.x,self.y1 - rect.y)
         if abs(direcao[0]) > abs(direcao[1]):
@@ -79,7 +81,7 @@ class Entidade(Sprite):
                 self.rect.y = rect.y - self.altura
             else:
                 self.rect.y = rect.y + TAMANHO_CELULA
-
+    #Checa as colisões com as bordas
     def colisao_bordas(self):
 
         if self.rect.x > (CELULAS_LARGURA*TAMANHO_CELULA)-TAMANHO_BORDAS-self.largura:
