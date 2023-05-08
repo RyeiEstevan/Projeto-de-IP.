@@ -9,6 +9,9 @@ from timer import Timer
 from inimigos import Inimigo
 
 def main():
+    pygame.mixer.music.set_volume(0.5)
+    tema = pygame.mixer.music.load("sons\Tema.mp3")
+    pygame.mixer.music.play(-1)
 
     tempo_invencivel = 0
     #Criando objetos e o grupo de seus sprites
@@ -62,6 +65,7 @@ def main():
         player.sprite.update()
 
         if pygame.sprite.spritecollide(player, vilao, False) and tempo_invencivel == 0:
+            player.dano.play()
             player.vida -= 1
             tempo_invencivel += 1
         elif tempo_invencivel > 0 and tempo_invencivel < 75:
@@ -75,6 +79,7 @@ def main():
         clock.tick(60)
 
         if tempo-int(timer.sec) < 0:
+            player.dano.play()
             player.vida -= 1
             tempo += 60
         if player.vida <= 0:

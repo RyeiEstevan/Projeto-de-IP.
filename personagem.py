@@ -21,6 +21,7 @@ class Personagem(Entidade):
         self.tempo_explodir = 0
         self.bomba = 0
         self.portal = False
+        self.dano = pygame.mixer.Sound("sons\Dano.wav")
 
     def update(self):
         self.buff_tempo = 0
@@ -28,9 +29,11 @@ class Personagem(Entidade):
         botao = pygame.key.get_pressed()
         if botao[pygame.K_SPACE]:
             if not self.explodir:
+                bomba_barulho = pygame.mixer.Sound("sons\Colocar bomba.wav")
                 self.explodir = True
                 print(f"Boom bomba, local: ({self.rect.x}, {self.rect.y})")
                 self.bomba = Bomba(self.rect.x, self.rect.y, self.blocos_destrutiveis)
+                bomba_barulho.play()
 
         if botao[pygame.K_a]:
             self.rect.x -= self.velocidade
@@ -48,7 +51,9 @@ class Personagem(Entidade):
         if self.explodir:        
             self.tempo_explodir += 1
             if self.tempo_explodir == 180:
+                explosao = pygame.mixer.Sound("sons\Explosão.wav")
                 self.explodir_bomba()
+                explosao.play()
 
             elif self.tempo_explodir == 240:
                 self.apagar_fogo()
@@ -63,14 +68,19 @@ class Personagem(Entidade):
         sprites.remove(self.bomba)
         self.bomba.explodir()
         if self.bomba.fogo1.rect.colliderect(self.rect):
+            self.dano.play()
             self.vida -= 1
         if self.bomba.fogo2.rect.colliderect(self.rect):
+            self.dano.play()
             self.vida -= 1
         if self.bomba.fogo3.rect.colliderect(self.rect):
+            self.dano.play()
             self.vida -= 1
         if self.bomba.fogo4.rect.colliderect(self.rect):
+            self.dano.play()
             self.vida -= 1
         if self.bomba.fogo5.rect.colliderect(self.rect):
+            self.dano.play()
             self.vida -= 1
     
     def apagar_fogo(self):
