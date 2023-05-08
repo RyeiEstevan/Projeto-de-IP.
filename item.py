@@ -34,6 +34,8 @@ class Item(Sprite):
         
 #Criando a  função que remove da tela o Sprite do item coletado:
     def kill(self):
+       pegou = pygame.mixer.Sound("sons\Item.wav")
        Item.itens.remove(self)
        sprites.remove(self)
+       pegou.play()
         
