@@ -61,7 +61,6 @@ class Fogo(Sprite):
         self.rect.x = x
         self.rect.y = y
         self.contagem = 60
-        __class__.fogo.append(self)
 
         for i in quebrar:
             if self.rect.colliderect(i.rect):
@@ -71,6 +70,7 @@ class Fogo(Sprite):
         
         if not pygame.sprite.spritecollide(self, sprites, False):
             sprites.add(self)
+            __class__.fogo.append(self)
 
     def update(self):
         self.contagem -= 1
