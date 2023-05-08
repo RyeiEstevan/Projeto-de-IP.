@@ -7,10 +7,11 @@ from pygame.sprite import Group
 from entidades import Entidade
 from mapa import blocos_destrutiveis
 from inimigos import x, y
-
+#Definindo a classe do personagem
 class Personagem(Entidade):
 
     def __init__(self, x, y, blocos_destrutiveis):
+        #Gerando as caracteristicas do personagem
         super().__init__(x, y, TAMANHO_CELULA-10, blocos_destrutiveis, "personagem")
         self.velocidade = 3
         self.sprite = Group(self)
@@ -21,7 +22,7 @@ class Personagem(Entidade):
         self.tempo_explodir = 0
         self.maximo_bombas = 1
         self.portal = False
-
+    #Atualiza os status do personagem, como a movimentação, checa a colisão com os inimigos, o fogo e os blocos
     def update(self):
 
         if pygame.sprite.spritecollide(self, vilao, False):
@@ -64,7 +65,7 @@ class Personagem(Entidade):
             if self.rect.colliderect(i):
                 self.acao[i.tipo](self)
                 i.kill()
-
+    #Definindo os efeitos dos power ups
     def buff_speed(self):
         self.velocidade += 3
 
