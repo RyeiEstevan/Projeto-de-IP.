@@ -2,9 +2,10 @@ import pygame
 from constantes import *
 from sprites import sprites, sprite
 from mapa import blocos_destrutiveis
-
+#classe da bomba
 class Bomba(pygame.sprite.Sprite):
     def __init__(self,x, y, blocos_destrutiveis):
+        #Definindo as propriedades da bomba, 
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(sprite["bomba"])
         self.image = pygame.transform.scale(self.image, (TAMANHO_CELULA, TAMANHO_CELULA))
