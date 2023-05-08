@@ -4,12 +4,6 @@ from pygame.sprite import Sprite
 from sprites import sprites, sprite
 
 #Declarando biblioteca com os 'power ups' e itens que teremos no jogo: Vida, Tempo, Velocidade, e o Portal:
-materiais = {
-    "vida" : "sprites\Vida.png",
-    "tempo" : 'sprites\Tempo.png',
-    "velocidade" : "sprites\Velocidade.png",
-    "portal" : "sprites\Portal.png"
-}
 
 # Criando  a classe Item:
 class Item(Sprite):
