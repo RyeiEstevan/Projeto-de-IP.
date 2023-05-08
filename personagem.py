@@ -21,7 +21,6 @@ class Personagem(Entidade):
         self.tempo_explodir = 0
         self.maximo_bombas = 1
         self.portal = False
-        #self.adicionar_colisao(blocos_destrutiveis, blocos_indestrutiveis)
 
     def update(self):
 
