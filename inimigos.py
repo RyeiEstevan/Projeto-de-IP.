@@ -24,7 +24,7 @@ class Inimigo(Entidade):
         self.image = transform.scale(image.load(sprite[tipo]), (TAMANHO_CELULA, TAMANHO_CELULA))
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
-        sprites.add(self)
+        vilao.add(self)
 
     def update(self):
 

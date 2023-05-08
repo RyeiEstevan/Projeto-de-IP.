@@ -10,6 +10,7 @@ from inimigos import Inimigo
 
 def main():
 
+    tempo_invencivel = 0
     #Criando objetos e o grupo de seus sprites
     #sprites = pygame.sprite.Group()
     pygame.font.init()
@@ -50,12 +51,23 @@ def main():
             if event.type == pygame.QUIT:
                 Rodar == False
                 exit()
+        
+        vilao.draw(mapa.tela)
+        vilao.update()
         mapa.tela.blit(texto_timer, (TAMANHO_CELULA*CELULAS_LARGURA - 100 -TAMANHO_CELULA//2,0))
         mapa.tela.blit(texto_formatado, (50,0))
         player.sprite.draw(mapa.tela)
         sprites.draw(mapa.tela)
         sprites.update()
         player.sprite.update()
+
+        if pygame.sprite.spritecollide(player, vilao, False) and tempo_invencivel == 0:
+            player.vida -= 1
+            tempo_invencivel += 1
+        elif tempo_invencivel > 0 and tempo_invencivel < 75:
+            tempo_invencivel +=1
+        else:
+            tempo_invencivel = 0
 
         mapa.tela.blit(mapa.relogio, (TAMANHO_CELULA*CELULAS_LARGURA-50, 0))
         mapa.tela.blit(mapa.coração, (0, 0))

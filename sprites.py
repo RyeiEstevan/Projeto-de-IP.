@@ -1,6 +1,7 @@
 from pygame.sprite import Group
 
 sprites = Group()
+vilao = Group()
 
 sprite = {
     "back" : "sprites\Back.png",
