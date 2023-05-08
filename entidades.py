@@ -1,3 +1,4 @@
+from pygame.mixer import Sound
 from pygame.sprite import Sprite
 from constantes import *
 from pygame.rect import Rect
@@ -23,6 +24,13 @@ class Entidade(Sprite):
         self.buff_tempo = 0
         self.tempo_explodir = 0
         self.bomba = 0
+        self.frames_invenciveis_restantes = 60
+
+    def dano(self):
+        if self.frames_invenciveis_restantes == 0:
+            self.vida -= 1
+            Sound("sons\Dano.wav").play()
+            self.frames_invenciveis_restantes = 120
         
     def mover(self):
 
@@ -39,15 +47,19 @@ class Entidade(Sprite):
             self.rect.y -= self.velocidade  
 
 
-    def colisao(self, *args: list[Sprite], **kwargs):
+    def colisao(self, *args: list[list]):
 
         self.colisao_bordas()
 
         #checar colisão com blocos
-        spritelist = []
-        for i in args:
-            spritelist += i
-        for rect in (Rect(i, (TAMANHO_CELULA, TAMANHO_CELULA)) for i in spritelist):
+        rectlist = []
+        for lista in args:
+            if lista == [] or type(lista[0]) == Rect:
+                pass
+            elif type(lista[0]) == tuple:
+                lista = [Rect(i, (TAMANHO_CELULA, TAMANHO_CELULA)) for i in lista]
+            rectlist += lista
+        for rect in rectlist:
             if self.rect.colliderect(rect):
                 self.restringir_posicao(rect)
                 
@@ -60,7 +72,7 @@ class Entidade(Sprite):
             else:
                 self.colide_bomba = True
 
-    def restringir_posicao(self, rect):
+    def restringir_posicao(self, rect: Rect):
         direcao = (self.x1 - rect.x,self.y1 - rect.y)
         if abs(direcao[0]) > abs(direcao[1]):
             if direcao[0] < 0:

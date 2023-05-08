@@ -13,7 +13,6 @@ def main():
     tema = pygame.mixer.music.load("sons\Tema.mp3")
     pygame.mixer.music.play(-1)
 
-    tempo_invencivel = 0
     #Criando objetos e o grupo de seus sprites
     #sprites = pygame.sprite.Group()
     pygame.font.init()
@@ -27,7 +26,10 @@ def main():
     Item(mapa.tela, items_posição[2], "vida")
     Item(mapa.tela, items_posição[3], "portal")
 
-    inimigo = Inimigo("polemonio", blocos_dest)
+    numero_inimigos = 4
+    for _ in range(numero_inimigos):
+        Inimigo("polemonio", blocos_dest)
+
     player = Personagem(25, 125, blocos_dest)
     [sprites.add(i) for i in bordas + blocos_ind + blocos_dest]
 
@@ -64,23 +66,13 @@ def main():
         sprites.update()
         player.sprite.update()
 
-        if pygame.sprite.spritecollide(player, vilao, False) and tempo_invencivel == 0:
-            player.dano.play()
-            player.vida -= 1
-            tempo_invencivel += 1
-        elif tempo_invencivel > 0 and tempo_invencivel < 75:
-            tempo_invencivel +=1
-        else:
-            tempo_invencivel = 0
-
         mapa.tela.blit(mapa.relogio, (TAMANHO_CELULA*CELULAS_LARGURA-50, 0))
         mapa.tela.blit(mapa.coração, (0, 0))
         pygame.display.update()
         clock.tick(60)
 
         if tempo-int(timer.sec) < 0:
-            player.dano.play()
-            player.vida -= 1
+            player.dano()
             tempo += 60
         if player.vida <= 0:
             Rodar = False

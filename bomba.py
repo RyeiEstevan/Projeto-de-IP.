@@ -2,16 +2,23 @@ import pygame
 from constantes import *
 from sprites import sprites, sprite
 from mapa import blocos_destrutiveis
+from pygame.sprite import Sprite
+from pygame import image, transform
+
 #classe da bomba
-class Bomba(pygame.sprite.Sprite):
+class Bomba(Sprite):
+
+    bombas = []
+
     def __init__(self,x, y, blocos_destrutiveis):
         #Definindo as propriedades da bomba, 
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(sprite["bomba"])
-        self.image = pygame.transform.scale(self.image, (TAMANHO_CELULA, TAMANHO_CELULA))
+        Sprite.__init__(self)
+        self.image = image.load(sprite["bomba"])
+        self.image = transform.scale(self.image, (TAMANHO_CELULA, TAMANHO_CELULA))
         self.rect = self.image.get_rect()
         self.quebrar = blocos_destrutiveis
-
+        Bomba.bombas.append(self.rect)
+ 
         for i in celulas:
             for j in i:
                 if  x >= j[X] and x < j[X] + TAMANHO_CELULA:
@@ -30,21 +37,24 @@ class Bomba(pygame.sprite.Sprite):
         self.fogo4 = Fogo(self.rect.x + TAMANHO_CELULA, self.rect.y, self.quebrar) #Fogo Direito
         self.fogo5 = Fogo(self.rect.x, self.rect.y, self.quebrar) #Fogo Central
 
-class Fogo(pygame.sprite.Sprite):
+class Fogo(Sprite):
+
+    fogo = []
+
     def __init__(self,x, y, quebrar):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(sprite["fogo"])
-        self.image = pygame.transform.scale(self.image, (TAMANHO_CELULA, TAMANHO_CELULA))
+        Sprite.__init__(self)
+        self.image = image.load(sprite["fogo"])
+        self.image = transform.scale(self.image, (TAMANHO_CELULA, TAMANHO_CELULA))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        __class__.fogo.append(self)
+
         for i in quebrar:
             if self.rect.colliderect(i.rect):
                 sprites.remove(i)
                 blocos_destrutiveis.remove((i.rect.x, i.rect.y))
                 quebrar.remove(i)
-
         
         if not pygame.sprite.spritecollide(self, sprites, False):
             sprites.add(self)
-

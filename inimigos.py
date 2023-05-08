@@ -4,6 +4,7 @@ from sprites import *
 from constantes import *
 from mapa import blocos_destrutiveis
 from entidades import Entidade
+from bomba import Fogo, Bomba
 
 class Inimigo(Entidade):
 
@@ -20,13 +21,26 @@ class Inimigo(Entidade):
         super().__init__(x, y, TAMANHO_CELULA, blocos_destrutiveis, "polemonio")
         self.direcao = random.choice(__class__.DIRECOES)
         self.colide = False
+        self.vida = 1
         self.velocidade = 2
         self.image = transform.scale(image.load(sprite[tipo]), (TAMANHO_CELULA, TAMANHO_CELULA))
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
         vilao.add(self)
+        #self.adicionar_colisao(blocos_destrutiveis, blocos_indestrutiveis, Bomba.bombas)
+
+    def morrer(self):
+        vilao.remove(self)
 
     def update(self):
+        if self.frames_invenciveis_restantes > 0:
+            self.frames_invenciveis_restantes -= 1
+
+        if self.rect.collidelist(Fogo.fogo) != -1:
+            self.dano()
+
+        if self.vida <= 0:
+            self.morrer()
 
         if self.direcao == "esquerda":
             self.rect.x -= self.velocidade
@@ -40,7 +54,7 @@ class Inimigo(Entidade):
         elif self.direcao == "cima":
             self.rect.y -= self.velocidade  
         
-        self.colisao(blocos_destrutiveis, blocos_indestrutiveis)
+        self.colisao(blocos_destrutiveis, blocos_indestrutiveis, Bomba.bombas)
     
     def restringir_posicao(self, rect):
 
