@@ -6,6 +6,7 @@ from bomba import Bomba
 from pygame.sprite import Group
 from entidades import Entidade
 from mapa import blocos_destrutiveis
+from inimigos import x, y
 
 class Personagem(Entidade):
     def __init__(self, x, y, blocos_destrutiveis):
@@ -29,6 +30,7 @@ class Personagem(Entidade):
                 self.explodir = True
                 print(f"Boom bomba, local: ({self.rect.x}, {self.rect.y})")
                 self.bomba = Bomba(self.rect.x, self.rect.y, self.blocos_destrutiveis)
+
         if botao[pygame.K_a]:
             self.rect.x -= self.velocidade
 
@@ -46,16 +48,16 @@ class Personagem(Entidade):
             self.tempo_explodir += 1
             if self.tempo_explodir == 180:
                 self.explodir_bomba()
+
             elif self.tempo_explodir == 240:
                 self.apagar_fogo()
         
         self.colisao(blocos_destrutiveis, blocos_indestrutiveis)
-        
+        self.colisao_mob()
         for i in Item.itens:
             if self.rect.colliderect(i):
                 self.acao[i.tipo](self)
                 i.kill()
-        
 
     def explodir_bomba(self):
         sprites.remove(self.bomba)
