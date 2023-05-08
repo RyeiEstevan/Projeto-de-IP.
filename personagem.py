@@ -20,6 +20,7 @@ class Personagem(Entidade):
         self.buff_tempo = 0
         self.tempo_explodir = 0
         self.bomba = 0
+        self.portal = False
 
     def update(self):
         self.buff_tempo = 0
@@ -92,7 +93,7 @@ class Personagem(Entidade):
         self.buff_tempo = 30
     
     def fim_jogo(self):
-        self.vida = 0
+        self.portal = True
 
     acao = {
         "velocidade" : buff_speed,

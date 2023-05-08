@@ -17,5 +17,7 @@ sprite = {
     "tempo": "sprites\Tempo.png",
     "velocidade": "sprites\Velocidade.png",
     "vida": "sprites\Vida.png",
-    "inicio": "sprites\Tela_inicial1.jpg"
+    "inicio": "sprites\Tela_inicial1.jpg",
+    "ganhou": "sprites\Ganhou.jpg",
+    "perdeu": "sprites\Perdeu.jpg"
 }

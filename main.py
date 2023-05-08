@@ -79,6 +79,11 @@ def main():
             tempo += 60
         if player.vida <= 0:
             Rodar = False
+            win_lose(0)
+        elif player.portal:
+            Rodar = False
+            win_lose(1)
+        #Depois de perder ou ganhar, se você apertar qualquer botão do teclado, a tela é fechada automaticamente
 
 def start():
     largura = CELULAS_LARGURA*TAMANHO_CELULA
@@ -103,5 +108,33 @@ def start():
             no_menu = False
             exit()
         pygame.display.update()
+
+def win_lose(W_L):
+    if W_L == 1:
+        W_L = "ganhou"
+    elif W_L == 0:
+        W_L = "perdeu"
+    largura = CELULAS_LARGURA*TAMANHO_CELULA
+    altura = CELULAS_ALTURA*TAMANHO_CELULA
+    tela_wl = pygame.display.set_mode((largura, altura)) 
+    wl_back = pygame.image.load(sprite[W_L])
+    wl_back = pygame.transform.scale(wl_back, (largura, altura))
+    if W_L == "ganhou":
+        pygame.display.set_caption("CINberman - Você ganhou!")
+    elif W_L == "perdeu":
+        pygame.display.set_caption("CINberman - Você perdeu!")
+    pygame.init()
+    no_wl = True
+    while no_wl:
+        tela_wl.blit(wl_back, (0,0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                no_wl == False
+                exit()
+            if event.type == pygame.KEYDOWN:
+                no_wl == False
+                exit()
+        pygame.display.update()
+
 
 start()
