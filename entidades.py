@@ -4,6 +4,7 @@ from constantes import *
 from pygame.rect import Rect
 from pygame import image, transform
 from sprites import sprite
+from bomba import Bomba
 
 class Entidade(Sprite):
 
@@ -17,13 +18,9 @@ class Entidade(Sprite):
         self.image = transform.scale(self.image, (self.largura, self.altura))
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
-        self.explodir = False
-        self.colide_bomba = False
+        self.dentro_bomba = False
         self.blocos_destrutiveis = blocos_destrutiveis
         self.vida = 3
-        self.buff_tempo = 0
-        self.tempo_explodir = 0
-        self.bomba = 0
         self.frames_invenciveis_restantes = 60
 
     def dano(self):
@@ -54,23 +51,21 @@ class Entidade(Sprite):
         #checar colisão com blocos
         rectlist = []
         for lista in args:
-            if lista == [] or type(lista[0]) == Rect:
-                pass
-            elif type(lista[0]) == tuple:
-                lista = [Rect(i, (TAMANHO_CELULA, TAMANHO_CELULA)) for i in lista]
-            rectlist += lista
+            rectlist += [Rect(i, (TAMANHO_CELULA, TAMANHO_CELULA)) for i in lista]
         for rect in rectlist:
             if self.rect.colliderect(rect):
                 self.restringir_posicao(rect)
                 
         #checar colisão com bomba
-        if self.explodir:
-            rect = Rect((self.bomba.rect.x,self.bomba.rect.y),(TAMANHO_CELULA, TAMANHO_CELULA))
+        
+        colidiu = False
+        for rect in Bomba.bombas:
             if self.rect.colliderect(rect):
-                if self.colide_bomba:
-                    self.restringir_posicao(rect)
-            else:
-                self.colide_bomba = True
+                colidiu = True
+                if not self.dentro_bomba:
+                    self.restringir_posicao(rect)                
+        if not colidiu:
+            self.dentro_bomba = False
 
     def restringir_posicao(self, rect: Rect):
         direcao = (self.x1 - rect.x,self.y1 - rect.y)
