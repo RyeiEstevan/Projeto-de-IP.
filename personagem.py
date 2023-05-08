@@ -53,7 +53,6 @@ class Personagem(Entidade):
                 self.apagar_fogo()
         
         self.colisao(blocos_destrutiveis, blocos_indestrutiveis)
-        self.colisao_mob()
         for i in Item.itens:
             if self.rect.colliderect(i):
                 self.acao[i.tipo](self)
