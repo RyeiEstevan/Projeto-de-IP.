@@ -22,10 +22,10 @@ class Bomba(Sprite):
  
         for i in celulas:
             for j in i:
-                if  x >= j[X] and x < j[X] + TAMANHO_CELULA:
+                if  x + TAMANHO_CELULA/2 >= j[X] and x < j[X] + TAMANHO_CELULA:
                     if j not in blocos_indestrutiveis:
                         self.rect.x = j[X]
-                if y >= j[Y] and y < j[Y] + TAMANHO_CELULA:
+                if y + TAMANHO_CELULA/2 >= j[Y] and y < j[Y] + TAMANHO_CELULA:
                     if j not in blocos_indestrutiveis:
                         self.rect.y = j[Y]
         
