@@ -7,6 +7,7 @@ from item import Item
 from sprites import *
 from timer import Timer
 from inimigos import Inimigo
+from bomba import Fogo
 
 def main():
     pygame.mixer.music.set_volume(0.5)
