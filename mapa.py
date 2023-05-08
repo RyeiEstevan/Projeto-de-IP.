@@ -57,7 +57,7 @@ for i in range(NUM_BLOCOS_DESTRUTIVEIS):
 #geração das posições de itens
 items_posição = []
 ja_tem = False
-for i in range (4):
+for i in range (5):
     while not ja_tem:
         sorteado = random.randint(0, len(blocos_destrutiveis)-1)
         if blocos_destrutiveis[sorteado] not in items_posição:
