@@ -19,5 +19,6 @@ sprite = {
     "vida": "sprites\Vida.png",
     "inicio": "sprites\Tela_inicial1.jpg",
     "ganhou": "sprites\Ganhou.jpg",
-    "perdeu": "sprites\Perdeu.jpg"
+    "perdeu": "sprites\Perdeu.jpg",
+    "item_bomba": "sprites\Bomba_power_up.png"
 }
