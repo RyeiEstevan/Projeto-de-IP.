@@ -3,6 +3,7 @@ from constantes import *
 from pygame.sprite import Sprite
 from sprites import sprites, sprite
 
+#Declarando biblioteca com os 'power ups' e itens que teremos no jogo: Vida, Tempo, Velocidade, e o Portal:
 materiais = {
     "vida" : "sprites\Vida.png",
     "tempo" : 'sprites\Tempo.png',
@@ -10,10 +11,13 @@ materiais = {
     "portal" : "sprites\Portal.png"
 }
 
+# Criando  a classe Item:
 class Item(Sprite):
 
     itens = []
 
+    
+# Definindo o Construtor da classe:
     def __init__(self, tela, cel, tipo: str):
         
         Sprite.__init__(self)
@@ -26,7 +30,9 @@ class Item(Sprite):
         self.rect.y = cel[Y]
         sprites.add(self)
         Item.itens.append(self)
-
+        
+        
+#Criando a  função que remove da tela o Sprite do item coletado:
     def kill(self):
        Item.itens.remove(self)
        sprites.remove(self)
