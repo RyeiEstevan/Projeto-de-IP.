@@ -42,7 +42,6 @@ class Personagem(Entidade):
             if not self.explodir:
                 bomba_barulho = pygame.mixer.Sound("sons\Colocar bomba.wav")
                 self.explodir = True
-                print(f"Boom bomba, local: ({self.rect.x}, {self.rect.y})")
                 self.bomba = Bomba(self.rect.x, self.rect.y, self.blocos_destrutiveis)
                 bomba_barulho.play()
 
