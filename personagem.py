@@ -19,7 +19,7 @@ class Personagem(Entidade):
         self.vida = 3
         self.buff_tempo = 0
         self.tempo_explodir = 0
-        self.maximo_bombas = 10
+        self.maximo_bombas = 1
         self.portal = False
         #self.adicionar_colisao(blocos_destrutiveis, blocos_indestrutiveis)
 
@@ -78,9 +78,13 @@ class Personagem(Entidade):
     def fim_jogo(self):
         self.portal = True
 
+    def item_bomba(self):
+        self.maximo_bombas += 1
+
     acao = {
         "velocidade" : buff_speed,
         "vida" : curar,
         "tempo" : tempo,
-        "portal" : fim_jogo
+        "portal" : fim_jogo,
+        "item_bomba" : item_bomba
     }
