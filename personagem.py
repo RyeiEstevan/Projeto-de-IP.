@@ -19,7 +19,7 @@ class Personagem(Entidade):
         self.vida = 3
         self.buff_tempo = 0
         self.tempo_explodir = 0
-        self.maximo_bombas = 1
+        self.maximo_bombas = 10
         self.portal = False
         #self.adicionar_colisao(blocos_destrutiveis, blocos_indestrutiveis)
 
@@ -39,7 +39,7 @@ class Personagem(Entidade):
         botao = pygame.key.get_pressed()
 
         if botao[pygame.K_SPACE]:
-            if len(Bomba.bombas) < self.maximo_bombas:
+            if len(Bomba.bombas) < self.maximo_bombas and not self.dentro_bomba:
                 self.dentro_bomba = True
                 for i in vilao:
                     i.dentro_bomba = True
