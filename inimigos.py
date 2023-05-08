@@ -5,19 +5,22 @@ from constantes import *
 from mapa import blocos_destrutiveis
 from entidades import Entidade
 from bomba import Fogo, Bomba
-
+#Definindo a classe dos inimigos
 class Inimigo(Entidade):
 
     DIRECOES = ["esquerda", "direita", "cima", "baixo"]
     
     def __init__(self, tipo, blocos_destrutiveis):
+        #Variável para checar se a posição gerada para o inimigo é válida
         pos_valida = False
+        #Loop para ficar gerando posições para o inimigo nascer, até ter uma válida
         while pos_valida == False:
             x = random.randint(0, MAPA_ALTURA - 1)
             y = random.randint(0, MAPA_LARGURA - 1)
             if (x > 1 or y > 1) and celulas[x][y] not in blocos_indestrutiveis + blocos_destrutiveis:
                 x, y = celulas[x][y]
                 pos_valida = True
+        #Gerando as caracteristicas do inimigo
         super().__init__(x, y, TAMANHO_CELULA, blocos_destrutiveis, "polemonio")
         self.direcao = random.choice(__class__.DIRECOES)
         self.colide = False
@@ -26,12 +29,12 @@ class Inimigo(Entidade):
         self.image = transform.scale(image.load(sprite[tipo]), (TAMANHO_CELULA, TAMANHO_CELULA))
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
+        #Lista contenco os inimigos
         vilao.add(self)
-        #self.adicionar_colisao(blocos_destrutiveis, blocos_indestrutiveis, Bomba.bombas)
-
+    #Função para retirar o inimigo morto da lista
     def morrer(self):
         vilao.remove(self)
-
+    #Atualiza a direção que o inimigo se move, além de checar se ele colidiu como fogo
     def update(self):
         if self.frames_invenciveis_restantes > 0:
             self.frames_invenciveis_restantes -= 1
@@ -55,7 +58,7 @@ class Inimigo(Entidade):
             self.rect.y -= self.velocidade  
         
         self.colisao(blocos_destrutiveis, blocos_indestrutiveis)
-    
+    #Restringe a posição do inimigo
     def restringir_posicao(self, rect):
 
         if self.direcao == 'cima':
@@ -71,10 +74,10 @@ class Inimigo(Entidade):
             self.rect.x = rect.x - TAMANHO_CELULA
 
         self.mudar_direcao()
-
+    #Sorteia uma nova direção para ele andar
     def mudar_direcao(self):
         self.direcao = random.choice([x for x in __class__.DIRECOES if x is not self.direcao])
-
+    #Checa a colisão com a borda
     def colisao_bordas(self):
 
         if self.rect.x > (CELULAS_LARGURA*TAMANHO_CELULA)-TAMANHO_BORDAS-TAMANHO_CELULA:
